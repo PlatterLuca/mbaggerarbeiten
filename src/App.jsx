@@ -71,7 +71,8 @@ function Logo() {
 
 function Header({ path }) {
   const [open, setOpen] = useState(false)
-  return <header className="site-header">
+  const onLightBackground = path === '/impressum' || path === '/datenschutz'
+  return <header className={`site-header ${onLightBackground ? 'on-light' : ''}`}>
     <div className="nav-wrap">
       <Logo />
       <button className={`menu-button ${open ? 'is-open' : ''}`} type="button" aria-label="Menü öffnen" aria-expanded={open} onClick={() => setOpen(!open)}><span/><span/></button>
@@ -206,13 +207,13 @@ function Legal({ privacy = false }) {
     <h2>5. Ihre Rechte</h2><p>Sie haben insbesondere das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Eine erteilte Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen. Beschwerden können an die österreichische Datenschutzbehörde gerichtet werden.</p>
     <h2>6. Kontakt</h2><p>Bei Fragen zum Datenschutz wenden Sie sich bitte an Matthias Bstieler unter bstielermatthias@gmail.com.</p><p><small>Stand: August 2026</small></p>
   </> : <>
-    <h2>Angaben gemäß § 5 ECG</h2><p><strong>MBaggerarbeiten<br/>Matthias Bstieler</strong><br/>Wallhorn 38<br/>9974 Prägraten am Großvenediger<br/>Österreich</p>
-    <h2>Kontakt</h2><p>Telefon: +43 (0) 664 386 13 13<br/>E-Mail: bstielermatthias@gmail.com<br/>Website: www.mbaggerarbeiten.at</p>
-    <h2>Unternehmensangaben</h2><p>Rechtsform: Einzelunternehmen<br/>UID-Nummer: ATU79798202<br/>Gerichtsstand: Bezirksgericht Lienz<br/>Unternehmensgegenstand: Erdbau- und Baggerarbeiten<br/>Mitglied bei: Wirtschaftskammer Österreich<br/>Aufsichtsbehörde: Bezirkshauptmannschaft Lienz</p>
+    <h2>Angaben gemäß § 5 ECG</h2><p><strong>Geschäftsführer:<br/>Matthias Bstieler</strong><br/>Wallhorn 38<br/>9974 Prägraten am Großvenediger<br/>Österreich</p>
+    <h2>Kontakt</h2><p>Telefon: +43 (0) 664 3861313<br/>E-Mail: bstielermatthias@gmail.com<br/>Website: https://www.mbaggerarbeiten.at</p>
+    <h2>Unternehmensangaben</h2><p>Rechtsform: Einzelunternehmen<br/>UID-Nummer: ATU79798202<br/>Gerichtsstand: Bezirksgericht Lienz<br/>Unternehmensgegenstand: Erdbau- und Baggerarbeiten<br/>Mitglied bei: Wirtschaftskammer Österreich<br/>Aufsichtsbehörde: Bezirkshauptmannschaft (BH) Lienz</p>
     <h2>Anwendbare Rechtsvorschriften</h2><p>Gewerbeordnung (GewO) in der jeweils geltenden Fassung.</p>
-    <h2>Haftung für Inhalte</h2><p>Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität wird jedoch keine Gewähr übernommen.</p>
-    <h2>Haftung für Links</h2><p>Diese Website kann Links zu externen Websites enthalten, auf deren Inhalte kein Einfluss besteht. Für deren Inhalt sind ausschließlich die jeweiligen Betreiber verantwortlich.</p>
-    <h2>Urheberrecht</h2><p>Alle Inhalte dieser Website, insbesondere Texte, Bilder und Grafiken, unterliegen dem Urheberrecht. Jede Verwendung außerhalb der Grenzen des Urheberrechts bedarf der vorherigen schriftlichen Zustimmung des Rechteinhabers.</p>
+    <h2>Haftung für Inhalte</h2><p>Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte wird jedoch keine Gewähr übernommen.</p>
+    <h2>Haftung für Links</h2><p>Diese Website kann Links zu externen Websites enthalten, auf deren Inhalte kein Einfluss besteht. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+    <h2>Urheberrecht</h2><p>Alle Inhalte dieser Website (Texte, Bilder, Grafiken und sonstige Dateien) unterliegen dem Urheberrecht. Jede Verwendung außerhalb der Grenzen des Urheberrechts bedarf der vorherigen schriftlichen Zustimmung des jeweiligen Rechteinhabers.</p>
   </>}</main>
 }
 
