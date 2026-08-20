@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Original customer files; only optimized web assets belong in public/images
+Website MBaggerarbeiten/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
