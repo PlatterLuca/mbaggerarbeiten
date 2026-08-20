@@ -123,7 +123,7 @@ function Home() {
 
     <section className="values section">
       <div className="shell">
-        <div className="section-heading split"><div><Eyebrow light>Warum MBaggerarbeiten?</Eyebrow><h2>Auf ein Wort ist<br/><em>Verlass.</em></h2></div><p>Direkte Kommunikation, fachgerechte Ausführung und ehrliche Qualität – bei jedem Projekt, unabhängig von seiner Größe.</p></div>
+        <div className="section-heading split"><div><Eyebrow light>Warum MBaggerarbeiten?</Eyebrow><h2>Qualität bei jedem<br/><em>Projekt.</em></h2></div><p>Direkte Kommunikation, fachgerechte Ausführung und ehrliche Qualität – bei jedem Projekt, unabhängig von seiner Größe.</p></div>
         <div className="value-grid">{values.map((value) => <div className="value" key={value}><Icon name="check"/><strong>{value}</strong></div>)}</div>
       </div>
     </section>
@@ -137,8 +137,8 @@ function Home() {
   </>
 }
 
-function PageHero({ eyebrow, title, italic, children, image }) {
-  return <section className="page-hero">
+function PageHero({ eyebrow, title, italic, children, image, compact = false }) {
+  return <section className={`page-hero ${compact ? 'compact' : ''}`}>
     <img src={asset(image)} alt=""/>
     <div className="page-hero-shade"/>
     <div className="shell page-hero-content"><Eyebrow light>{eyebrow}</Eyebrow><h1>{title}<br/><em>{italic}</em></h1>{children && <p>{children}</p>}</div>
@@ -160,13 +160,13 @@ function Services() {
 
 function About() {
   return <>
-    <PageHero eyebrow="Über mich" title="Erfahrung, die" italic="etwas bewegt." image="ueber-mich-hero.webp"/>
+    <PageHero eyebrow="Über mich" title="Matthias" italic="Bstieler." image="ueber-mich-hero.webp" compact/>
     <section className="about-story section shell">
       <div className="story-media"><img src={asset('maschine-tal.webp')} alt="Takeuchi-Bagger bei Erdarbeiten in Osttirol"/><p><strong>Takeuchi TB 290</strong><span>9 Tonnen Einsatzgewicht</span></p></div>
-      <div className="story-copy"><Eyebrow>Matthias Bstieler</Eyebrow><h2>Mit Begeisterung.<br/><em>Mit Verantwortung.</em></h2><p>Als Einzelunternehmen mit Sitz in Prägraten am Großvenediger stehe ich für zuverlässige Baggerarbeiten mit Handschlagqualität. Meine Begeisterung für den Erdbau wurde schon früh geweckt.</p><p>Durch meine Tätigkeit bei renommierten Baggerunternehmen in Matrei in Osttirol und Hollersbach im Pinzgau konnte ich wertvolle Erfahrung sammeln und mein Fachwissen kontinuierlich erweitern.</p><blockquote>„Was ich beginne, führe ich mit Sorgfalt und Verlässlichkeit zu Ende.“</blockquote></div>
+      <div className="story-copy"><Eyebrow>Matthias Bstieler</Eyebrow><h2>Mit Begeisterung.<br/><em>Mit Verantwortung.</em></h2><p>Als Einzelunternehmen mit Sitz in Prägraten am Großvenediger stehe ich für zuverlässige Baggerarbeiten mit Handschlagqualität. Meine Begeisterung für den Erdbau wurde schon früh geweckt.</p><p>Durch meine Tätigkeit bei renommierten Baggerunternehmen in Matrei in Osttirol und Hollersbach im Pinzgau konnte ich wertvolle Erfahrung sammeln und mein Fachwissen kontinuierlich erweitern.</p></div>
     </section>
-    <section className="milestone"><div className="shell milestone-grid"><div><span>2023</span><small>Schritt in die Selbstständigkeit</small></div><div className="milestone-copy"><Eyebrow light>Ein eigener Weg</Eyebrow><h2>Aus Erfahrung wurde<br/><em>Unternehmertum.</em></h2><p>Im Herbst 2023 wagte ich mit 27 Jahren den Schritt in die Selbstständigkeit und investierte in meinen ersten eigenen Bagger – einen Takeuchi TB 290 mit 9 Tonnen Einsatzgewicht.</p></div></div></section>
-    <section className="section shell craft"><div><Eyebrow>Was mich antreibt</Eyebrow><h2>Technik verstehen.<br/><em>Gelände spüren.</em></h2><p>Die Arbeit mit modernen Baumaschinen fasziniert mich jeden Tag aufs Neue. Präzision, technisches Know-how und ein gutes Gespür für jedes Projekt sind dabei ebenso entscheidend wie Sorgfalt, Genauigkeit und Geduld.</p><p>Das Vertrauen meiner Kunden ist für mich die beste Bestätigung meiner Arbeit. So setze ich jedes Projekt gewissenhaft und termingerecht um – von der ersten Besichtigung bis zum erfolgreichen Abschluss.</p></div><img src={asset('steinmauer-detail.webp')} alt="Detail einer handwerklich errichteten Natursteinmauer" loading="lazy"/></section>
+    <section className="milestone"><div className="shell milestone-grid"><div><span>2023</span><small>Schritt in die Selbstständigkeit</small></div><div className="milestone-copy"><Eyebrow light>Gründung</Eyebrow><h2>Schritt in die<br/><em>Selbstständigkeit.</em></h2><p>Im Herbst 2023 wagte ich mit 27 Jahren den Schritt in die Selbstständigkeit und investierte in meinen ersten eigenen Bagger – einen Takeuchi TB 290 mit 9 Tonnen Einsatzgewicht.</p></div></div></section>
+    <section className="section shell craft"><div><Eyebrow>Arbeitsweise</Eyebrow><h2>Erfahrung und<br/><em>Präzision.</em></h2><p>Die Arbeit mit modernen Baumaschinen fasziniert mich jeden Tag aufs Neue. Präzision, technisches Know-how und ein gutes Gespür für jedes Projekt sind dabei ebenso entscheidend wie Sorgfalt, Genauigkeit und Geduld.</p><p>Das Vertrauen meiner Kunden ist für mich die beste Bestätigung meiner Arbeit. So setze ich jedes Projekt gewissenhaft und termingerecht um – von der ersten Besichtigung bis zum erfolgreichen Abschluss.</p></div><img src={asset('steinmauer-detail.webp')} alt="Detail einer handwerklich errichteten Natursteinmauer" loading="lazy"/></section>
     <ContactBand />
   </>
 }
