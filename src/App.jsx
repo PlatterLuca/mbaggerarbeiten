@@ -160,7 +160,7 @@ function Services() {
 
 function About() {
   return <>
-    <PageHero eyebrow="Über mich" title="Erfahrung, die" italic="etwas bewegt." image="ueber-mich-hero.webp">Persönlicher Einsatz, modernes Gerät und ein ehrlicher Handschlag – dafür steht MBaggerarbeiten.</PageHero>
+    <PageHero eyebrow="Über mich" title="Erfahrung, die" italic="etwas bewegt." image="ueber-mich-hero.webp"/>
     <section className="about-story section shell">
       <div className="story-media"><img src={asset('maschine-tal.webp')} alt="Takeuchi-Bagger bei Erdarbeiten in Osttirol"/><p><strong>Takeuchi TB 290</strong><span>9 Tonnen Einsatzgewicht</span></p></div>
       <div className="story-copy"><Eyebrow>Matthias Bstieler</Eyebrow><h2>Mit Begeisterung.<br/><em>Mit Verantwortung.</em></h2><p>Als Einzelunternehmen mit Sitz in Prägraten am Großvenediger stehe ich für zuverlässige Baggerarbeiten mit Handschlagqualität. Meine Begeisterung für den Erdbau wurde schon früh geweckt.</p><p>Durch meine Tätigkeit bei renommierten Baggerunternehmen in Matrei in Osttirol und Hollersbach im Pinzgau konnte ich wertvolle Erfahrung sammeln und mein Fachwissen kontinuierlich erweitern.</p><blockquote>„Was ich beginne, führe ich mit Sorgfalt und Verlässlichkeit zu Ende.“</blockquote></div>
