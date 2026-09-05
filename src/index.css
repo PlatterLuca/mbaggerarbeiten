@@ -146,3 +146,6 @@
 }
 @media(max-width:600px){.milestone{padding-block:70px}.milestone-grid{gap:0}.milestone-grid>div:first-child{display:none}}
 @media(max-width:600px){.nav-wrap{height:58px}.site-header .logo-image{width:54px;height:38px;margin-left:-3px}.menu-button{width:34px;height:34px}.menu-button span{left:6px;width:22px}.menu-button span:first-child{top:13px}.menu-button span:last-child{top:21px}}
+
+@media(min-width:601px){.service-showcase>.service-compact-list{grid-template-rows:repeat(6,auto);grid-auto-flow:column}}
+@media(max-width:600px){.service-showcase>.service-compact-list{grid-template-rows:none;grid-auto-flow:row}}
