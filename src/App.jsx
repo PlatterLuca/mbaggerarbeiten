@@ -86,7 +86,7 @@ function Link({ to, children, className = '', onNavigate }) {
 
 function Logo() {
   return <Link to="/" className="logo" aria-label="MBaggerarbeiten – Startseite">
-    <img className="logo-image" src={`${import.meta.env.BASE_URL}logo-matthias.svg`} alt="MBaggerarbeiten – Matthias Bstieler"/>
+    <img className="logo-image" src={`${import.meta.env.BASE_URL}logo-matthias.svg?v=2`} alt="MBaggerarbeiten – Matthias Bstieler"/>
   </Link>
 }
 
@@ -167,7 +167,7 @@ function Home() {
   const values = ['Saubere Arbeit', 'Persönliche Betreuung', 'Moderne Maschinentechnik', 'Handschlagqualität', 'Termintreue', 'Präzise Ausführung', 'Regional in Osttirol']
   return <>
     <section className="hero">
-      <img src={asset('hero.webp')} alt="Baggerarbeiten im Osttiroler Bergland" />
+      <img className="hero-feature" src={asset('start-picture.webp')} alt="Bagger an einer Natursteinmauer in Osttirol" />
       <div className="hero-shade"/>
       <div className="hero-content shell">
         <Eyebrow light>Erdbau aus Prägraten</Eyebrow>
@@ -182,11 +182,12 @@ function Home() {
       <div className="intro-copy">
         <Eyebrow>Über MBaggerarbeiten</Eyebrow>
         <h2>Leidenschaft für<br/>den <em>Erdbau.</em></h2>
-        <p>Wo Erfahrung auf echtes Gespür für das Gelände trifft, entstehen Lösungen, die Bestand haben. Als regionaler Einzelunternehmer begleite ich Ihr Projekt persönlich – von der ersten Besichtigung bis zum letzten Handgriff.</p>
+        <p className="intro-text-desktop">Wo Erfahrung auf echtes Gespür für das Gelände trifft, entstehen Lösungen, die Bestand haben. Als regionaler Einzelunternehmer begleite ich Ihr Projekt persönlich – von der ersten Besichtigung bis zum letzten Handgriff.</p>
+        <p className="intro-text-mobile">Ich begleite Ihr Projekt persönlich – von der ersten Besichtigung bis zur Fertigstellung.</p>
         <Button to="/ueber-mich" secondary>Matthias kennenlernen</Button>
       </div>
       <div className="intro-media portrait-media">
-        <img src={asset('matthias-portrait.webp')} alt="Matthias Bstieler vor seinem Takeuchi-Bagger" loading="lazy"/>
+        <img src={asset('matthias-home.webp')} alt="Matthias Bstieler in Osttirol" loading="lazy"/>
         <div className="experience-card"><strong>Seit 2023</strong><span>selbstständig mit Leidenschaft</span></div>
       </div>
     </section>
@@ -260,7 +261,7 @@ function ContactForm() {
 function Contact() {
   return <>
     <section className="contact-page section"><div className="shell contact-layout"><div className="contact-copy"><Eyebrow>Kontakt</Eyebrow><h1>Lassen Sie uns Ihr<br/><em>Projekt anpacken.</em></h1><p>Kontaktieren Sie mich unverbindlich für Ihr Bauvorhaben. Ich melde mich persönlich bei Ihnen und bespreche die nächsten Schritte.</p><div className="contact-details"><a href="tel:+436643861313"><Icon name="phone"/><span><small>Telefon</small><strong>+43 (0) 664 386 13 13</strong></span></a><a href="mailto:bstielermatthias@gmail.com"><Icon name="mail"/><span><small>E-Mail</small><strong>bstielermatthias@gmail.com</strong></span></a><div><Icon name="pin"/><span><small>Adresse</small><strong>Wallhorn 38<br/>9974 Prägraten am Großvenediger</strong></span></div></div></div><div className="contact-photo"><img src={asset('hero.webp')} alt="Takeuchi-Bagger bei der Arbeit in Osttirol"/></div></div></section>
-    <section className="form-section section"><div className="shell"><div className="form-heading"><Eyebrow>Unverbindlich anfragen</Eyebrow><h2>Erzählen Sie mir von<br/><em>Ihrem Vorhaben.</em></h2></div><ContactForm /></div></section>
+    <section className="form-section section"><div className="shell"><div className="form-heading"><Eyebrow>Unverbindlich anfragen</Eyebrow></div><ContactForm /></div></section>
   </>
 }
 
