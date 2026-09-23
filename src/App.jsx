@@ -30,31 +30,35 @@ const services = [
 ]
 
 const gallery = [
-  ['steinmauer.webp', 'Natursteinmauern'],
-  ['grabungsarbeiten.webp', 'Diverse Grabungsarbeiten'],
-  ['geogitter.webp', 'Geogitter / Bewehrte Erde'],
-  ['kultivierung.webp', 'Kultivierungen'],
-  ['steinmauer-detail.webp', 'Natursteinmauern'],
-  ['planierung.webp', 'Außenanlagen'],
+  ['steinmauer.webp', 'Natursteinmauern', 'natursteinmauern'],
+  ['grabungsarbeiten.webp', 'Diverse Grabungsarbeiten', 'grabungsarbeiten'],
+  ['geogitter.webp', 'Geogitter / Bewehrte Erde', 'geogitter'],
+  ['kultivierung.webp', 'Kultivierungen', 'kultivierungen'],
+  ['steinmauer-detail.webp', 'Natursteinmauern', 'natursteinmauern'],
+  ['planierung.webp', 'Außenanlagen', null],
 ]
 
 const projectFolders = [
   {
+    slug: 'natursteinmauern',
     title: 'Natursteinmauern',
     cover: 'projekte/steinmauer/img_3488.webp',
     images: ['db0402b9-fa84-4a46-9aa1-d7c6eb24bdf7', 'img_2297', 'img_2368', 'img_2371', 'img_3488', 'img_3491', 'img_3599', 'img_3603', 'img_3624', 'img_3625', 'img_3626', 'img_3669', 'img_3671', 'img_3678', 'img_3679', 'img_4445', 'img_4460', 'img_4471', 'img_4613', 'img_4620', 'img_4621'].map((name) => `projekte/steinmauer/${name}.webp`),
   },
   {
+    slug: 'geogitter',
     title: 'Geogitter / Bewehrte Erde',
     cover: 'projekte/geogitter/img_3266.webp',
     images: ['img_3051', 'img_3185', 'img_3261', 'img_3262', 'img_3266', 'img_4389'].map((name) => `projekte/geogitter/${name}.webp`),
   },
   {
+    slug: 'kultivierungen',
     title: 'Kultivierungen',
     cover: 'projekte/kultivierungen/img_4509.webp',
     images: ['img_2725', 'img_2731', 'img_3070', 'img_3074', 'img_3229', 'img_4503', 'img_4509', 'img_4569', 'img_4570', 'img_4575'].map((name) => `projekte/kultivierungen/${name}.webp`),
   },
   {
+    slug: 'grabungsarbeiten',
     title: 'Diverse Grabungsarbeiten',
     cover: 'projekte/grabungsarbeiten/img_4898.webp',
     images: ['ad61bca0-13b1-44a7-bc74-9004b0f0ec16', 'img_3172', 'img_3174', 'img_3204', 'img_3216', 'img_3350', 'img_3470', 'img_3473', 'img_3784', 'img_3814', 'img_3950', 'img_4263', 'img_4480', 'img_4500', 'img_4529', 'img_4594', 'img_4740', 'img_4894', 'img_4898', 'img_4921', 'img_4938'].map((name) => `projekte/grabungsarbeiten/${name}.webp`),
@@ -114,10 +118,17 @@ function Button({ to, children, secondary = false }) {
 }
 
 function ProjectFolders() {
-  const [activeFolder, setActiveFolder] = useState(null)
+  const [activeFolder, setActiveFolder] = useState(() => {
+    const requested = new URLSearchParams(window.location.search).get('projekt')
+    const index = projectFolders.findIndex((item) => item.slug === requested)
+    return index >= 0 ? index : null
+  })
   const [activeImage, setActiveImage] = useState(0)
   const folder = activeFolder === null ? null : projectFolders[activeFolder]
-  const close = () => setActiveFolder(null)
+  const close = () => {
+    setActiveFolder(null)
+    if (new URLSearchParams(window.location.search).has('projekt')) window.history.replaceState({}, '', `${basePath}/leistungen`)
+  }
   const move = (direction) => setActiveImage((current) => (current + direction + folder.images.length) % folder.images.length)
 
   useEffect(() => {
@@ -138,6 +149,7 @@ function ProjectFolders() {
   const open = (index) => {
     setActiveFolder(index)
     setActiveImage(0)
+    window.history.replaceState({}, '', `${basePath}/leistungen?projekt=${projectFolders[index].slug}`)
   }
 
   return <>
@@ -201,16 +213,17 @@ function Home() {
 
     <section className="projects section shell">
       <div className="section-heading split light-bg"><div><Eyebrow><span className="projects-label-desktop">Ausgewählte Projekte</span><span className="projects-label-mobile">Projekte</span></Eyebrow><h2>Arbeit, die für<br/><em>sich spricht.</em></h2></div><Button to="/leistungen" secondary>Alle Leistungen</Button></div>
-      <div className="gallery-grid">{gallery.slice(0, 4).map(([img, caption], i) => <figure className={`gallery-item item-${i + 1}`} key={img}><img src={asset(img)} alt={caption} loading="lazy"/><figcaption><strong>{caption}</strong></figcaption></figure>)}</div>
+      <div className="gallery-grid">{gallery.slice(0, 4).map(([img, caption], i) => <Link className={`gallery-item item-${i + 1}`} to="/leistungen#projektgalerien" key={img}><figure><img src={asset(img)} alt={caption} loading="lazy"/><figcaption><strong>{caption}</strong><span className="gallery-open-label">Projekte ansehen <Icon name="arrow" size={16}/></span></figcaption></figure></Link>)}</div>
     </section>
 
     <ContactBand />
   </>
 }
 
-function PageHero({ eyebrow, title, italic, children, image, compact = false }) {
+function PageHero({ eyebrow, title, italic, children, image, mobileImage, compact = false }) {
   return <section className={`page-hero ${compact ? 'compact' : ''}`}>
-    <img src={asset(image)} alt=""/>
+    <img className={mobileImage ? 'page-hero-desktop-image' : ''} src={asset(image)} alt=""/>
+    {mobileImage && <img className="page-hero-mobile-image" src={asset(mobileImage)} alt=""/>}
     <div className="page-hero-shade"/>
     <div className="shell page-hero-content"><Eyebrow light>{eyebrow}</Eyebrow><h1>{title}<br/><em>{italic}</em></h1>{children && <p>{children}</p>}</div>
   </section>
@@ -220,7 +233,7 @@ function Services() {
   return <>
     <PageHero eyebrow="Was ich für Sie bewege" title="Leistungen mit" italic="Substanz." image="steinmauer.webp"/>
     <section className="section shell services-intro"><div><Eyebrow>Erdbau aus einer Hand</Eyebrow><h2>Vielseitig im Einsatz.<br/><em>Präzise im Ergebnis.</em></h2></div><div><p>Meine Dienstleistungen im Bereich Erdbau umfassen eine breite Palette von Erd- und Baggerarbeiten.</p><p>Ob Neubau, Sanierung oder Geländegestaltung – ich biete Ihnen zuverlässige und fachgerechte Erdbau- und Baggerarbeiten für private, gewerbliche und landwirtschaftliche Projekte. Mit moderner Maschinentechnik, langjähriger Erfahrung und Handschlagqualität setze ich Ihre Vorhaben präzise, termingerecht und sauber um.</p></div></section>
-    <section className="service-list section"><div className="shell service-gallery-heading"><Eyebrow>Projektgalerien</Eyebrow><h2>Einblicke in die Arbeit.</h2><p>Ordner auswählen und durch die Projektbilder blättern.</p></div><div className="shell service-showcase">
+    <section className="service-list section"><div className="shell service-gallery-heading" id="projektgalerien"><Eyebrow>Projektgalerien</Eyebrow><h2>Einblicke in die Arbeit.</h2><p>Ordner auswählen und durch die Projektbilder blättern.</p></div><div className="shell service-showcase">
       <ProjectFolders/>
       <div className="service-compact-list">{services.map(([title, copy], i) => <article key={title}><span>{String(i + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
     </div></section>
@@ -231,7 +244,7 @@ function Services() {
 
 function About() {
   return <>
-    <PageHero eyebrow="Über mich" title="Matthias" italic="Bstieler." image="ueber-mich-hero.webp" compact/>
+    <PageHero eyebrow="Über mich" title="Matthias" italic="Bstieler." image="about-me-pic.webp" mobileImage="ueber-mich-hero.webp"/>
     <section className="about-story section shell">
       <div className="story-media portrait"><img src={asset('matthias-portrait.webp')} alt="Matthias Bstieler vor seinem Takeuchi TB 290"/><p><strong>Takeuchi TB 290</strong><span>9 Tonnen Einsatzgewicht</span></p></div>
       <div className="story-copy"><Eyebrow>Matthias Bstieler</Eyebrow><h2>Mit Begeisterung.<br/><em>Mit Verantwortung.</em></h2><p>Als Einzelunternehmen mit Sitz in Prägraten am Großvenediger stehe ich für zuverlässige Baggerarbeiten mit Handschlagqualität. Meine Begeisterung für den Erdbau wurde schon früh geweckt.</p><p>Durch meine Tätigkeit bei renommierten Baggerunternehmen in Matrei in Osttirol und Hollersbach im Pinzgau konnte ich wertvolle Erfahrung sammeln und mein Fachwissen kontinuierlich erweitern.</p><figure className="childhood-photo"><img src={asset('matthias-jung.webp')} alt="Matthias als Kind in einem Bagger" loading="lazy"/><figcaption>Die Begeisterung für Bagger begann schon früh.</figcaption></figure></div>
@@ -260,7 +273,7 @@ function ContactForm() {
 
 function Contact() {
   return <>
-    <section className="contact-page section"><div className="shell contact-layout"><div className="contact-copy"><Eyebrow>Kontakt</Eyebrow><h1>Lassen Sie uns Ihr<br/><em>Projekt anpacken.</em></h1><p>Kontaktieren Sie mich unverbindlich für Ihr Bauvorhaben. Ich melde mich persönlich bei Ihnen und bespreche die nächsten Schritte.</p><div className="contact-details"><a href="tel:+436643861313"><Icon name="phone"/><span><small>Telefon</small><strong>+43 (0) 664 386 13 13</strong></span></a><a href="mailto:bstielermatthias@gmail.com"><Icon name="mail"/><span><small>E-Mail</small><strong>bstielermatthias@gmail.com</strong></span></a><div><Icon name="pin"/><span><small>Adresse</small><strong>Wallhorn 38<br/>9974 Prägraten am Großvenediger</strong></span></div></div></div><div className="contact-photo"><img src={asset('hero.webp')} alt="Takeuchi-Bagger bei der Arbeit in Osttirol"/></div></div></section>
+    <section className="contact-page section"><div className="shell contact-layout"><div className="contact-copy"><Eyebrow>Kontakt</Eyebrow><h1>Ihr Wunsch ist mein<br/><em>nächstes Projekt.</em></h1><p>Kontaktieren Sie mich unverbindlich für Ihr Bauvorhaben. Ich melde mich persönlich bei Ihnen und bespreche die nächsten Schritte.</p><div className="contact-details"><a href="tel:+436643861313"><Icon name="phone"/><span><small>Telefon</small><strong>+43 (0) 664 386 13 13</strong></span></a><a href="mailto:bstielermatthias@gmail.com"><Icon name="mail"/><span><small>E-Mail</small><strong>bstielermatthias@gmail.com</strong></span></a><div><Icon name="pin"/><span><small>Adresse</small><strong>Wallhorn 38<br/>9974 Prägraten am Großvenediger</strong></span></div></div></div><div className="contact-photo"><img src={asset('hero.webp')} alt="Takeuchi-Bagger bei der Arbeit in Osttirol"/></div></div></section>
     <section className="form-section section"><div className="shell"><div className="form-heading"><Eyebrow>Unverbindlich anfragen</Eyebrow></div><ContactForm /></div></section>
   </>
 }
@@ -308,7 +321,11 @@ function App() {
   useEffect(() => {
     const labels = {'/': 'Baggerarbeiten in Osttirol', '/leistungen': 'Leistungen', '/ueber-mich': 'Über mich', '/kontakt': 'Kontakt', '/impressum': 'Impressum', '/datenschutz': 'Datenschutz'}
     document.title = `${labels[path] || 'MBaggerarbeiten'} | MBaggerarbeiten`
-    window.scrollTo(0, 0)
+    if (window.location.hash) {
+      window.requestAnimationFrame(() => document.querySelector(window.location.hash)?.scrollIntoView({ block: 'start' }))
+    } else {
+      window.scrollTo(0, 0)
+    }
   }, [path])
   const pages = {'/': <Home/>, '/leistungen': <Services/>, '/ueber-mich': <About/>, '/kontakt': <Contact/>, '/impressum': <Legal/>, '/datenschutz': <Legal privacy/>}
   return <><Header path={path}/><main>{pages[path] || <Home/>}</main><Footer/></>
